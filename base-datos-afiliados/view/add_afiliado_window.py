@@ -1,11 +1,11 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import messagebox
+from tkinter import ttk
 
-class MainWindow(tk.Tk):
+class AddAfiliadoWindow(tk.Toplevel):
     def __init__(self, controller):
         super().__init__()
-        self.title("Sindicato Regional de Luz y Fuerza - Gestión de Afiliados")
+        self.title("Agregar Afiliado")
         self.controller = controller
         #Creamos componentes
         self.label_nombre = ttk.Label(self, text = "Nombre")
@@ -39,17 +39,6 @@ class MainWindow(tk.Tk):
     def mostrar_error(self, titulo, mensaje):
         messagebox.showerror(titulo, mensaje)
 
-    def main(self):
-        self.mainloop()
-
-    def centrar_ventana(self):
-        self.update()
-        ancho = self.winfo_width()
-        alto = self.winfo_height()
-        x_offset = (self.winfo_screenwidth() - ancho) // 2
-        y_offset = (self.winfo_screenheight() - alto) // 2
-        self.geometry(f"{ancho}x{alto}+{x_offset}+{y_offset}")
-    
     def confirmar_datos(self):
         nombre = self.entry_nombre.get()
         apellido = self.entry_apellido.get()
@@ -59,6 +48,7 @@ class MainWindow(tk.Tk):
         if nombre and apellido and dni and nro_afiliado and cantidad_familiares:
             self.controller.crear_afiliado(nombre, apellido, dni, nro_afiliado, cantidad_familiares)
             self.mostrar_mensaje("CONFIRMACION", "Los datos fueron registrados correctamente.")
+            self.destroy()
         else:
             self.mostrar_error("ERROR" ,"Por favor, complete todos los campos.")
         self.entry_nombre.delete(0, tk.END)
@@ -66,3 +56,11 @@ class MainWindow(tk.Tk):
         self.entry_dni.delete(0, tk.END)
         self.entry_nro_afiliado.delete(0, tk.END)
         self.entry_cantidad_familiares.delete(0, tk.END)
+
+    def centrar_ventana(self):
+        self.update()
+        ancho = self.winfo_width()
+        alto = self.winfo_height()
+        x_offset = (self.winfo_screenwidth() - ancho) // 2
+        y_offset = (self.winfo_screenheight() - alto) // 2
+        self.geometry(f"{ancho}x{alto}+{x_offset}+{y_offset}")

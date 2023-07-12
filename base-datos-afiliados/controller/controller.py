@@ -1,6 +1,6 @@
 from models.afiliado import Afiliado
 from models.grupo_familiar import GrupoFamiliar
-from view.view import MainWindow
+from view.main_window import MainWindow
 
 class Controller:
     def __init__(self):
